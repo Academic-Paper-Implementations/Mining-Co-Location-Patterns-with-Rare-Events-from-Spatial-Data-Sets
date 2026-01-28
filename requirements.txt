@@ -1,5 +1,0 @@
-dvc==3.63.0
-ipykernel==6.31.0
-huggingface_hub
-dvc-azure
-pandas
