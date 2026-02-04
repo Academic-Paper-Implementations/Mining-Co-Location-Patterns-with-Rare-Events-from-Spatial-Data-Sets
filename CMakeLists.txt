@@ -33,3 +33,9 @@ add_executable (main ${SOURCE_FILES})
 set_target_properties(main PROPERTIES
     VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
 )
+
+# ==============================================================================
+# Copy config and data files to build directory
+# ==============================================================================
+file(COPY "${CMAKE_SOURCE_DIR}/config" DESTINATION "${CMAKE_BINARY_DIR}")
+file(COPY "${CMAKE_SOURCE_DIR}/data" DESTINATION "${CMAKE_BINARY_DIR}")
