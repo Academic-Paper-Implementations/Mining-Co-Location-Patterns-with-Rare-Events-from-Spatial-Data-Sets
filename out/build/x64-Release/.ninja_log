@@ -1,0 +1,9 @@
+# ninja log v6
+50	2039	7912787911120125	CMakeFiles/main.dir/src/spatial_index.cpp.obj	e4d842005ca2774e
+5	2056	7912787910659733	CMakeFiles/main.dir/src/config.cpp.obj	4fc485e8a569af58
+21	5983	7912787910840995	CMakeFiles/main.dir/src/miner.cpp.obj	81c35cc47aa23e89
+26	2242	7912787910915633	CMakeFiles/main.dir/src/neighborhood_mgr.cpp.obj	b7e0d3e493a4bb9f
+16	5202	7912787910806847	CMakeFiles/main.dir/src/main.cpp.obj	372a3512e3bc61e
+55	3428	7912787911186911	CMakeFiles/main.dir/src/utils.cpp.obj	2aebc5e9980d5680
+11	5845	7912787910724082	CMakeFiles/main.dir/src/data_loader.cpp.obj	fbfdb606b010992f
+5983	6423	7912787970396811	main.exe	535a2fb7f1bffedf
