@@ -42,7 +42,7 @@ std::vector<std::pair<Colocation, double>> MaxPRMiner::mineColocations(
     std::map<Colocation, double> patternMaxPR;  // Track maxPR values for candidate generation
 
     // Estimate total iterations (max pattern size is number of types)
-    int maxK = types.size();
+    int maxK = static_cast<int>(types.size());
     int currentIteration = 0;
     int totalIterations = 0; // Will be updated as we go
 
@@ -509,7 +509,7 @@ std::vector<Colocation> MaxPRMiner::selectMaxPRColocations(
             int participatedCount = 0;
             auto partIt = participatingMap.find(feature);
             if (partIt != participatingMap.end()) {
-                participatedCount = partIt->second.size();
+                participatedCount = static_cast<int>(partIt->second.size());
             }
 
             double ratio = (double)participatedCount / totalFeatureCount;

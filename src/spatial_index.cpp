@@ -23,12 +23,12 @@ double SpatialIndex::euclideanDist(const SpatialInstance& a, const SpatialInstan
 std::vector<std::pair<SpatialInstance, SpatialInstance>> SpatialIndex::findNeighborPair(const std::vector<SpatialInstance>& instances) {
     std::vector<std::pair<SpatialInstance, SpatialInstance>> neighborPairs;
 
-    int N = instances.size();
+    size_t N = instances.size();
 
     // Brute-force approach: compare all pairs of instances
     // Time complexity: O(n²) where n is the number of instances
-    for (int i = 0; i < N; ++i) {
-        for (int j = i + 1; j < N; ++j) {
+    for (size_t i = 0; i < N; ++i) {
+        for (size_t j = i + 1; j < N; ++j) {
             if (instances[i].type != instances[j].type) {
                 // Calculate distance between instances i and j
                 double dist = euclideanDist(instances[i], instances[j]);
