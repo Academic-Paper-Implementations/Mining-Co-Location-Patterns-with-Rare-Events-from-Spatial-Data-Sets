@@ -259,23 +259,24 @@ std::vector<Colocation> MaxPRMiner::generateCandidatesMaxPR(
         return candidates;
     }
     
-    size_t patternSize = prevMaxPR[0].size();
+    size_t k = prevMaxPR[0].size();  // Current pattern size (k-patterns)
     
     // Create set for quick lookup of patterns above threshold
     std::set<Colocation> prevSet(prevMaxPR.begin(), prevMaxPR.end());
     
     // ========================================================================
-    // WEAK MONOTONICITY CANDIDATE GENERATION (Algorithm maxPrune - Step 3)
-    // Based on Lemma 3 from paper:
+    // CANDIDATE GENERATION - EXACT IMPLEMENTATION OF EXAMPLE 8 (page 252)
     // 
-    // Lemma 3: For a k-pattern C with maxPR(C) >= theta (k >= 3), there exist 
-    // two (k-1) patterns C1, C2 such that:
-    // (1) C1 ⊂ C, C2 ⊂ C
-    // (2) C1 and C2 share their first k-2 features  
-    // (3) maxPR(C1) >= theta AND maxPR(C2) >= theta
+    // Paper Quote (Example 8):
+    // "For two co-location patterns P and P' from the set Pk of k-patterns
+    //  above threshold min_maxPR, P and P' can be joined to generate a 
+    //  candidate (k+1)-pattern in Ck+1 if and only if P and P' have ONE 
+    //  DIFFERENT FEATURE IN THE LAST TWO FEATURES."
     //
-    // Therefore: Join two (k-1)-patterns that share first (k-2) features
-    // and both have maxPR >= threshold
+    // Example: {A,B,C} and {A,C,D} can join because:
+    //   - Last two of {A,B,C} = {B,C}
+    //   - Last two of {A,C,D} = {C,D}
+    //   - They share feature C → valid join → produces {A,B,C,D}
     // ========================================================================
     
     for (size_t i = 0; i < prevMaxPR.size(); i++) {
@@ -283,36 +284,49 @@ std::vector<Colocation> MaxPRMiner::generateCandidatesMaxPR(
             const auto& p1 = prevMaxPR[i];
             const auto& p2 = prevMaxPR[j];
             
-            // Check if they share first (k-2) features
-            bool sharePrefix = true;
-            for (size_t idx = 0; idx + 2 < patternSize; idx++) {
-                if (p1[idx] != p2[idx]) {
-                    sharePrefix = false;
-                    break;
-                }
-            }
+            // ================================================================
+            // EXAMPLE 8 JOIN CONDITION:
+            // "P and P' have ONE different feature in their last two features"
+            // 
+            // This means: 
+            // - Get last two features of each pattern
+            // - They must share exactly ONE feature (differ in exactly one)
+            // ================================================================
             
-            if (!sharePrefix) continue;
+            // Get last two features of each pattern
+            FeatureType p1_last1 = p1[k - 1];      // Last feature of p1
+            FeatureType p1_last2 = p1[k - 2];      // Second-to-last of p1
+            FeatureType p2_last1 = p2[k - 1];      // Last feature of p2
+            FeatureType p2_last2 = p2[k - 2];      // Second-to-last of p2
+            
+            // Count shared features in last two positions
+            int sharedInLastTwo = 0;
+            if (p1_last1 == p2_last1 || p1_last1 == p2_last2) sharedInLastTwo++;
+            if (p1_last2 == p2_last1 || p1_last2 == p2_last2) sharedInLastTwo++;
+            
+            // Must share exactly ONE feature in last two (differ in one)
+            if (sharedInLastTwo != 1) continue;
             
             // Generate candidate by union of p1 and p2
             std::set<FeatureType> candidateSet(p1.begin(), p1.end());
             candidateSet.insert(p2.begin(), p2.end());
             
             // Must produce exactly (k+1) features
-            if (candidateSet.size() != patternSize + 1) {
+            if (candidateSet.size() != k + 1) {
                 continue;
             }
             
             Colocation candidate(candidateSet.begin(), candidateSet.end());
             
             // ================================================================
-            // WEAK MONOTONICITY PRUNING (Lemma 2 from paper):
-            // "If maxPR(C) >= theta, then at most ONE (k-1)-subpattern of C 
-            //  can have maxPR < theta"
+            // WEAK MONOTONICITY PRUNING - LEMMA 2 (page 251)
+            // 
+            // Paper Quote (Lemma 2):
+            // "Let P be a k-co-location pattern. Then, there exists AT MOST ONE
+            //  (k-1)-subpattern P' such that P' ⊂ P and maxPR(P') < maxPR(P)."
             //
             // Therefore: Prune candidate if MORE than one (k-1)-subset has
-            // maxPR < theta (i.e., is not in prevSet which contains only
-            // patterns with maxPR >= theta)
+            // maxPR < theta (i.e., is not in prevSet)
             // ================================================================
             int belowThresholdCount = 0;
             
@@ -322,10 +336,9 @@ std::vector<Colocation> MaxPRMiner::generateCandidatesMaxPR(
                 
                 // Check if this subset has maxPR >= threshold
                 // A subset is below threshold if it's NOT in prevSet
-                // (prevSet contains only patterns with maxPR >= threshold)
                 if (prevSet.find(subset) == prevSet.end()) {
                     belowThresholdCount++;
-                    if (belowThresholdCount > 1) break;  // Prune: more than 1 below threshold
+                    if (belowThresholdCount > 1) break;  // Prune: more than 1
                 }
             }
             
