@@ -35,7 +35,20 @@ set_target_properties(main PROPERTIES
 )
 
 # ==============================================================================
-# Copy config and data files to build directory
+# Copy config and data files to build directory (auto-sync on every build)
 # ==============================================================================
-file(COPY "${CMAKE_SOURCE_DIR}/config" DESTINATION "${CMAKE_BINARY_DIR}")
-file(COPY "${CMAKE_SOURCE_DIR}/data" DESTINATION "${CMAKE_BINARY_DIR}")
+# Copy config folder
+add_custom_command(TARGET main POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    "${CMAKE_SOURCE_DIR}/config"
+    "${CMAKE_BINARY_DIR}/config"
+    COMMENT "Syncing config files..."
+)
+
+# Copy data folder (only if not exists, to save time)
+add_custom_command(TARGET main POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different
+    "${CMAKE_SOURCE_DIR}/data"
+    "${CMAKE_BINARY_DIR}/data"
+    COMMENT "Syncing data files..."
+)
