@@ -4,7 +4,14 @@
  * 
  * This file contains the core mining algorithm that discovers spatial
  * colocation patterns with rare events using maximal participation ratio.
- * Based on: "Mining Co-Location Patterns with Rare Events" (Huang et al., 2006)
+ * 
+ * Based on: "Mining Co-Location Patterns with Rare Events from Spatial Data Sets"
+ * (Huang, Shekhar, Xiong - GeoInformatica, 2004)
+ * 
+ * Key concepts from paper:
+ * - maxPR(C) = max{ pr(C, fi) | fi ∈ C } where pr is participation ratio
+ * - Weak monotonicity: If maxPR(C) >= θ, at most ONE (k-1)-subset can have maxPR < θ
+ * - Algorithm maxPrune uses weak monotonicity for efficient candidate pruning
  */
 
 #pragma once

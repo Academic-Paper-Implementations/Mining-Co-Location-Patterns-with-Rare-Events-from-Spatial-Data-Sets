@@ -3,3 +3,31 @@
 Running MaxPR with d=160...
 [DEBUG] Step 2: Loading data from data/LasVegas_x_y_alphabet_version_03_2.csv...
 [DEBUG] Step 2: Loaded 22724 instances.
+[DEBUG] Step 3: Building spatial index with d=160...
+[DEBUG] Step 3: Found 182738 neighbor pairs.
+[DEBUG] Step 4: Materializing neighborhoods...
+[DEBUG] Step 4: Neighborhoods materialized.
+[DEBUG] Step 5: Mining colocation patterns with minMaxPR=0.15...
+[PERF] generateCandidates (k=2): 0 ms
+[PERF] filterStarInstances (Total) (k=2): 321 ms
+[PERF] selectMaxPRColocations (Final) (k=2): 390 ms
+[DEBUG] Found 132 maxPR patterns. Details:
+[PERF] generateCandidates (k=3): 16 ms
+[PERF] filterStarInstances (Total) (k=3): 1298 ms
+[PERF] selectMaxPRColocations (Coarse) (k=3): 3853 ms
+[PERF] filterCliqueInstances (k=3): 4296 ms
+[PERF] selectMaxPRColocations (Final) (k=3): 3629 ms
+[DEBUG] Found 365 maxPR patterns. Details:
+[PERF] generateCandidates (k=4): 26 ms
+[PERF] filterStarInstances (Total) (k=4): 8052 ms
+[PERF] selectMaxPRColocations (Coarse) (k=4): 26994 ms
+[PERF] filterCliqueInstances (k=4): 22962 ms
+[PERF] selectMaxPRColocations (Final) (k=4): 10466 ms
+[DEBUG] Found 376 maxPR patterns. Details:
+[PERF] generateCandidates (k=5): 17 ms
+ERF] filterStarInstances (Total) (k=5): 38701 ms
+[PERF] selectMaxPRColocations (Coarse) (k=5): 98197 ms
+[PERF] filterCliqueInstances (k=5): 90606 ms
+[PERF] selectMaxPRColocations (Final) (k=5): 22238 ms
+[DEBUG] Found 189 maxPR patterns. Details:
+[PERF] generateCandidates (k=6): 2 ms
