@@ -28,7 +28,7 @@ public:
      * 
      * @param pairs Vector of neighbor pairs found by spatial indexing
      */
-    void buildFromPairs(const std::vector<std::pair<SpatialInstance, SpatialInstance>>& pairs);
+    void buildFromPairs(const std::vector<std::pair<const SpatialInstance*, const SpatialInstance*>>& pairs);
 
     
     /**
@@ -38,4 +38,16 @@ public:
      *         Map from feature type to vector of star neighborhoods
      */
     const std::unordered_map<FeatureType, std::vector<StarNeighborhood>>& getAllStarNeighborhoods() const;
+
+    /**
+     * @brief Check if two spatial instances are neighbors
+     * 
+     * Checks if two instances are neighbors by looking up star neighborhoods.
+     * Returns true if instB is in instA's neighborhood or vice versa.
+     * 
+     * @param instA First spatial instance
+     * @param instB Second spatial instance
+     * @return true if instances are neighbors, false otherwise
+     */
+    bool areNeighbors(const SpatialInstance* instA, const SpatialInstance* instB) const;
 };
