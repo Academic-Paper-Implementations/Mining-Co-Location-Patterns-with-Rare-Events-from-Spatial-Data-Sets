@@ -20,8 +20,8 @@ double SpatialIndex::euclideanDist(const SpatialInstance& a, const SpatialInstan
     return std::sqrt(dx * dx + dy * dy);
 }
 
-std::vector<std::pair<SpatialInstance, SpatialInstance>> SpatialIndex::findNeighborPair(const std::vector<SpatialInstance>& instances) {
-    std::vector<std::pair<SpatialInstance, SpatialInstance>> neighborPairs;
+std::vector<std::pair<const SpatialInstance*, const SpatialInstance*>> SpatialIndex::findNeighborPair(const std::vector<SpatialInstance>& instances) {
+    std::vector<std::pair<const SpatialInstance*, const SpatialInstance*>> neighborPairs;
 
     size_t N = instances.size();
 
@@ -35,7 +35,7 @@ std::vector<std::pair<SpatialInstance, SpatialInstance>> SpatialIndex::findNeigh
 
                 // If distance is within threshold, they are neighbors
                 if (dist <= distanceThreshold) {
-                    neighborPairs.push_back({ instances[i], instances[j] });
+                    neighborPairs.push_back({ &instances[i], &instances[j] });
                 }
             }
         }

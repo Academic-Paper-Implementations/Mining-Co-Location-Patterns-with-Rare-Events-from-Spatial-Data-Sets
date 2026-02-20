@@ -44,5 +44,5 @@ public:
      * @return std::vector<std::pair<SpatialInstance, SpatialInstance>> Vector of neighbor pairs
      * @note Time complexity: O(n²) where n is the number of instances
      */
-    std::vector<std::pair<SpatialInstance, SpatialInstance>> findNeighborPair(const std::vector<SpatialInstance>& instances);
+    std::vector<std::pair<const SpatialInstance*, const SpatialInstance*>> findNeighborPair(const std::vector<SpatialInstance>& instances);
 };

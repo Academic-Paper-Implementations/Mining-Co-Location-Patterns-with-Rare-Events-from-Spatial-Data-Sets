@@ -29,3 +29,4 @@ spatial_index
 /CppProperties.json
 /CMakeSettings.json
 /mining_report.txt
+out/

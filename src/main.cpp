@@ -100,7 +100,7 @@ int main(int argc, char* argv[]) {
         }
     };
     
-    auto colocations = miner.mineColocations(config.minPrev, &neighbor_mgr, instances, progressCallback);
+    auto colocations = miner.mineColocations(config.minPrev, &neighbor_mgr, instances);
     std::cout << "[DEBUG] Step 5: Mining completed.\n";
     std::cerr << "[Step 5] Mining completed! Found " << colocations.size() << " patterns.\n";
     
