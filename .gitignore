@@ -30,3 +30,4 @@ spatial_index
 /CMakeSettings.json
 /mining_report.txt
 out/
+/out/build/x64-Release

@@ -1,7 +1,7 @@
 {
 	"InstallScripts" : 
 	[
-		"D:/max-pr/out/build/x64-Release/cmake_install.cmake"
+		"D:/0.SPRING2026/Data_mining/Mining-Co-Location-Patterns-with-Rare-Events-from-Spatial-Data-Sets/out/build/x64-Release/cmake_install.cmake"
 	],
 	"Parallel" : false
 }
