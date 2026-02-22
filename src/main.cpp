@@ -15,7 +15,7 @@
 #include <direct.h>
 #include <iomanip>
 
- //Show memmory usage
+//Show memmory usage
 #include <windows.h>
 #include <psapi.h>
 #include <stdio.h>
@@ -24,16 +24,17 @@
 int main(int argc, char* argv[]) {
     auto programStart = std::chrono::high_resolution_clock::now();
 
-    // ========================================================================
-    // Step 1: Load Configuration
-    // ========================================================================
-    std::string config_path = (argc > 1) ? argv[1] : "config/config.txt";
+    // --- Step 1: Config & Load Data ---
+    std::cout << "Running... (Results will be saved to result.txt)\n";
+    std::string config_path = (argc > 1) ? argv[1] : "./config/config.txt";
     AppConfig config = ConfigLoader::load(config_path);
 
-    auto instances = DataLoader::load_csv(config.datasetPath);
+    auto instances = DataLoader::load_csv(config.datasetPath, config.percentageData);
+
     // ========================================================================
     // Step 2: Build Spatial Index
     // ========================================================================
+    
     SpatialIndex spatial_idx(config.neighborDistance);
     auto neighborPairs = spatial_idx.findNeighborPair(instances);
 
@@ -92,12 +93,12 @@ int main(int argc, char* argv[]) {
     if (!colocations.empty()) {
         int idx = 1;
         for (const auto& pairCol : colocations) {
-            int patternSize = pairCol.first.size();
+			int patternSize = pairCol.first.size();
             outFile << "[" << idx++ << "] {";
             for (size_t i = 0; i < pairCol.first.size(); ++i) {
                 outFile << pairCol.first[i];
                 if (i < pairCol.first.size() - 1) outFile << ", ";
-            }
+			}
             outFile << "}\n";
         }
     }
