@@ -1,11 +1,12 @@
 # I/O Paths (relative from project root)
-dataset_path=data/sample_data.csv
+dataset_path=data/LasVegas_x_y_alphabet_version_03_2.csv
 output_path=mining_results.txt
 
 # Algorithm Thresholds
-neighbor_distance=5
-min_prevalence=0.6
+neighbor_distance=160
+min_prevalence=0.2
 min_cond_prob=0.5
+percentage_instances=0.5
 
 # Debug
 debug_mode=false

@@ -29,5 +29,5 @@ public:
      * @return std::vector<SpatialInstance> Vector of loaded spatial instances
      * @note Instance IDs are generated as: FeatureType + InstanceNumber (e.g., "A1", "B2")
      */
-    static std::vector<SpatialInstance> load_csv(const std::string& filepath);
+    static std::vector<SpatialInstance> load_csv(const std::string& filepath, double percentage = 1.0);
 };
