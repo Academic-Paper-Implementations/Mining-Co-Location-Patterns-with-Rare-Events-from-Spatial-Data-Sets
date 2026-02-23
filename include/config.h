@@ -26,6 +26,7 @@ struct AppConfig {
     double neighborDistance;    ///< Distance threshold for spatial neighbors
     double minPrev;            ///< Minimum prevalence threshold (0.0 to 1.0)
     double minCondProb;        ///< Minimum conditional probability for rules (0.0 to 1.0)
+    double percentageData;
 
     // System Settings
     bool debugMode;            ///< Enable debug output messages
@@ -42,6 +43,7 @@ struct AppConfig {
           neighborDistance(5.0),
           minPrev(0.6),
           minCondProb(0.5),
+          percentageData(1.0),
           debugMode(false) {}
 };
 

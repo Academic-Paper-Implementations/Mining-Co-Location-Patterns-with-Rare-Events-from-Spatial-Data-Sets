@@ -37,6 +37,7 @@ AppConfig ConfigLoader::load(const std::string& configPath) {
                 else if (key == "neighbor_distance") config.neighborDistance = std::stod(value);
                 else if (key == "min_prevalence") config.minPrev = std::stod(value);
                 else if (key == "min_cond_prob") config.minCondProb = std::stod(value);
+                else if (key == "percentage_instances") config.percentageData = std::stod(value);
                 else if (key == "debug_mode") config.debugMode = (value == "true" || value == "1");
             }
         }
